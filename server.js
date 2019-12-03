@@ -15,6 +15,7 @@ app.use(
 config();
 authRoutes(setAuth);
 app.use("/api/auth", setAuth);
+
 const PORT = process.env.PORT || 3001;
 
 // ROUTING
