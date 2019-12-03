@@ -19,14 +19,17 @@ const register = async (req, res) => {
         error: { field: "email", message: "This email already exists" }
       });
     }
-    if (err.message === "Password requires to have 8 characters minimum.") {
+    if (
+      err.message ===
+      "User validation failed: password: Password requires to have 8 characters minimum."
+    ) {
       return res.json({
         field: "password",
         message: err.message
       });
     }
     //  catch other errors
-    return res.status(500).json({ message: err.message });
+    return res.status(500).send("went through everything");
   }
 };
 
