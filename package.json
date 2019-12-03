@@ -6,7 +6,10 @@
   "scripts": {
     "start": "nodemon server.js"
   },
-  "keywords": [],
+  "keywords": [
+    "express",
+    "mongodb"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
