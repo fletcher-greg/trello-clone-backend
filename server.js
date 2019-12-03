@@ -22,5 +22,5 @@ const PORT = process.env.PORT || 3001;
 app.get("/api", (req, res) => {
   res.send("api");
 });
-app.get("/auth", (req, res) => res.send("authorized"));
+
 app.listen(PORT, () => console.log(`listening on port ${PORT}`));
