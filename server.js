@@ -1,8 +1,10 @@
 //  NPM IMPORTS
 const express = require("express");
 const app = express();
+const setAuth = express.Router();
 //  LOCAL IMPORTS
 const config = require("./config");
+const authRoutes = require("./authentication");
 
 //  CONFIGS
 app.use(
@@ -11,7 +13,8 @@ app.use(
   express.urlencoded({ extended: true })
 );
 config();
-
+authRoutes(setAuth);
+app.use("/api/auth", setAuth);
 const PORT = process.env.PORT || 3001;
 
 // ROUTING
