@@ -12,7 +12,7 @@ app.use(
 
   express.urlencoded({ extended: true })
 );
-config();
+config(); // init DB
 authRoutes(setAuth);
 app.use("/api/auth", setAuth);
 
