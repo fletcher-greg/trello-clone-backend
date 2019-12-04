@@ -20,8 +20,4 @@ const PORT = process.env.PORT || 3001;
 
 // ROUTING
 
-app.get("/api", (req, res) => {
-  res.send("api");
-});
-
 app.listen(PORT, () => console.log(`listening on port ${PORT}`));
