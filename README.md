@@ -9,10 +9,10 @@
 
 ### Tasks
 
-[x] basic auth api
-[ ] expand db to store notes
-[ ] expand db to include user stats
-[ ]
+- [x] basic auth api
+- [ ] expand db to store notes
+- [ ] expand db to include user stats
+- [ ] refactor
 
 ### Author
 
