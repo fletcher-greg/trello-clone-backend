@@ -121,10 +121,21 @@ const login = async (req, res) => {
   const token = signUserToken(user._id);
   return res.cookie("authToken", token, getCookieOpts()).json({ token });
 };
+//  email subscription
+const subscribe = async (req, res) => {
+  const { email } = req.body;
+
+  if (!email || !email.includes("@")) {
+    return res.status(400).send();
+  }
+  //  TODO add the email to the database
+  res.status(200).json({ message: "subscribed!" });
+};
 
 module.exports = router => {
   router.post("/register", register);
   router.get("/loggedUser", loggedUser);
   router.post("/login", login);
   router.get("/cachedUser", cachedUser);
+  router.post("/subscribe", subscribe);
 };
