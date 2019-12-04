@@ -2,6 +2,7 @@
 const express = require("express");
 const app = express();
 const setAuth = express.Router();
+const helmet = require("helmet");
 //  LOCAL IMPORTS
 const config = require("./config");
 const authRoutes = require("./authentication");
@@ -12,6 +13,7 @@ app.use(
 
   express.urlencoded({ extended: true })
 );
+app.use(helmet());
 config(); // init DB
 authRoutes(setAuth);
 app.use("/api/auth", setAuth);
