@@ -2,6 +2,25 @@ const User = require("../models/user/user");
 const jwt = require("jsonwebtoken");
 const SECRET_KEY = "secretkey";
 
+const getSafeUser = user => {
+  return omit(user, ["__v", "_id", "password"]);
+};
+
+const signUserToken = id => {
+  return jwt.sign({ id }, SECRET_KEY, { expiresIn: "7d" });
+};
+
+function getCookieOpts() {
+  const afterSevenDays = new Date(Date.now() + 7 * 24 * 60 * 60);
+
+  const cookieOptions = {
+    httpOnly: true,
+    expires: afterSevenDays,
+    signed: true
+  };
+  return cookieOptions;
+}
+
 const register = async (req, res) => {
   //  get user name and password
   console.log("hi");
@@ -74,7 +93,7 @@ const cachedUser = async (req, res) => {
   }
 
   try {
-    await jwt.verify(authToken, privateKey);
+    await jwt.verify(authToken, SECRET_KEY);
 
     return res.json({ token: authToken });
   } catch (error) {
@@ -84,7 +103,28 @@ const cachedUser = async (req, res) => {
     return res.status(500).send();
   }
 };
+
+const login = async (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    res.status(400).send();
+  }
+
+  const user = await User.findOne({ email });
+
+  if (!user || !(await user.isValidPassword(password))) {
+    return res.json({ error: { message: "Invalid credentials" } });
+  }
+
+  // send a signed cookie with the token
+  const token = signUserToken(user._id);
+  return res.cookie("authToken", token, getCookieOpts()).json({ token });
+};
+
 module.exports = router => {
   router.post("/register", register);
   router.get("/loggedUser", loggedUser);
+  router.post("/login", login);
+  router.get("/cachedUser", cachedUser);
 };
