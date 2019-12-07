@@ -25,6 +25,7 @@ const register = async (req, res) => {
   //  get user name and password
   console.log("hi");
   const { email, firstName, lastName, password } = req.body;
+
   if (!email || !firstName || !lastName || !password)
     return res.status(400).send(); //  invalid entry
 
@@ -106,9 +107,9 @@ const cachedUser = async (req, res) => {
 
 const login = async (req, res) => {
   const { email, password } = req.body;
-
+  console.log(req.body);
   if (!email || !password) {
-    res.status(400).send();
+    return res.status(400).send();
   }
 
   const user = await User.findOne({ email });
@@ -132,10 +133,29 @@ const subscribe = async (req, res) => {
   res.status(200).json({ message: "subscribed!" });
 };
 
+const initData = (req, res) =>
+  res.json({
+    data: [
+      {
+        title: "Awesome sauce",
+        id: 0,
+        cards: [{ id: 0, text: "no you don't say" }]
+      },
+      {
+        title: "Lols",
+        id: 0,
+        cards: [
+          { id: 0, text: "Freedom" },
+          { id: 1, text: "Billions" }
+        ]
+      }
+    ]
+  });
 module.exports = router => {
   router.post("/register", register);
   router.get("/loggedUser", loggedUser);
   router.post("/login", login);
   router.get("/cachedUser", cachedUser);
   router.post("/subscribe", subscribe);
+  router.get("/user-data", initData);
 };
