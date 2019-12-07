@@ -138,7 +138,7 @@ const subscribe = async (req, res) => {
 
 const initData = (req, res) =>
   res.json({
-    data: [
+    cardData: [
       {
         title: "Awesome sauce",
         id: 0,
@@ -152,8 +152,15 @@ const initData = (req, res) =>
           { id: 1, text: "Billions" }
         ]
       }
-    ]
+    ],
+    dbSync: false
   });
+const updateDB = async (req, res) => {
+  let data = req.body;
+
+  // TODO update db
+  return res.json({ message: "disconnected" });
+};
 module.exports = router => {
   router.post("/register", register);
   router.get("/loggedUser", loggedUser);
@@ -161,4 +168,5 @@ module.exports = router => {
   router.get("/cachedUser", cachedUser);
   router.post("/subscribe", subscribe);
   router.get("/user-data", initData);
+  router.post("/update-user-list", updateDB);
 };
