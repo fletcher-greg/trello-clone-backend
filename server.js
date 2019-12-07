@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const setAuth = express.Router();
 const helmet = require("helmet");
+const cookieParser = require("cookie-parser");
 //  LOCAL IMPORTS
 const config = require("./config");
 const authRoutes = require("./authentication");
@@ -10,7 +11,7 @@ const authRoutes = require("./authentication");
 //  CONFIGS
 app.use(
   express.json(),
-
+  cookieParser("secret"),
   express.urlencoded({ extended: true })
 );
 app.use(helmet());

@@ -113,13 +113,16 @@ const login = async (req, res) => {
   }
 
   const user = await User.findOne({ email });
-
-  if (!user || !(await user.isValidPassword(password))) {
+  console.log(user);
+  if (!user || !(await user.validatePassword(password))) {
+    console.log("invalid");
     return res.json({ error: { message: "Invalid credentials" } });
   }
 
   // send a signed cookie with the token
   const token = signUserToken(user._id);
+  console.log(token);
+  console.log("we got the token");
   return res.cookie("authToken", token, getCookieOpts()).json({ token });
 };
 //  email subscription
