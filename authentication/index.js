@@ -146,7 +146,7 @@ const initData = (req, res) =>
       },
       {
         title: "Lols",
-        id: 0,
+        id: 1,
         cards: [
           { id: 0, text: "Freedom" },
           { id: 1, text: "Billions" }
