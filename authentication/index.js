@@ -142,18 +142,33 @@ const initData = (req, res) =>
       {
         title: "Awesome sauce",
         id: 0,
-        cards: [{ id: 0, text: "no you don't say" }]
+        cards: [
+          { id: 0, text: "no you don't say", description: "", activity: [] }
+        ]
       },
       {
         title: "Lols",
         id: 1,
         cards: [
-          { id: 0, text: "Freedom" },
-          { id: 1, text: "Billions" }
+          {
+            id: 0,
+            text: "Freedom",
+            description: "",
+            activity: [
+              {
+                id: 0,
+                text: "We will, we will rock you",
+                author: "Greg Fletcher",
+                created: "10 minutes ago"
+              }
+            ]
+          },
+          { id: 1, text: "Billions", description: "", activity: [] }
         ]
       }
     ],
-    dbSync: false
+    dbSync: false,
+    disconnected: false
   });
 const updateDB = async (req, res) => {
   let data = req.body;
